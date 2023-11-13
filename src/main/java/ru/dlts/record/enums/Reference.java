@@ -6,9 +6,9 @@ public enum Reference {
   SENT,
   PUBLISHED_AND_SENT;
 
-  public static Reference conversely(Reference reference){
-    return switch (reference){
-      case FORMED ->  SENT;
+  public static Reference conversely(Reference reference) {
+    return switch (reference) {
+      case FORMED -> SENT;
       case PUBLISHED -> PUBLISHED_AND_SENT;
       default -> null;
     };
