@@ -24,17 +24,20 @@ public class RecordServiceImpl implements RecordService {
   @Override
   @Transactional
   public void publish(Integer recordId) {
+    System.out.println("publish call");
     Record record = recordRepository.findByRecordId(recordId).orElseThrow();
     if (record.getStatus() != Reference.FORMED) {
       return;
     }
     publishService.publish(record);
     record.setStatus(Reference.PUBLISHED);
+    System.out.println(record.getStatus());
   }
 
   @Override
   @Transactional
   public void send(Integer recordId) {
+    System.out.println("send call");
     Record record = recordRepository.findByRecordId(recordId).orElseThrow();
     if (record.getStatus() == Reference.SENT ||
         record.getStatus() == Reference.PUBLISHED_AND_SENT) {
@@ -42,6 +45,7 @@ public class RecordServiceImpl implements RecordService {
     }
     messageService.send(record);
     record.setStatus(Reference.conversely(record.getStatus()));
+    System.out.println(record.getStatus());
   }
 
   @Override
